@@ -1,0 +1,787 @@
+﻿<Window x:Class="Devices.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Devices"
+        mc:Ignorable="d"
+        Title="Whisper"
+        Width="1400"
+        Height="860"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        Background="#0B1020"
+        FontFamily="Segoe UI"
+        Closing="Window_Closing">
+
+    <Window.Resources>
+
+        <LinearGradientBrush x:Key="BgBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0B1020" Offset="0"/>
+            <GradientStop Color="#101A33" Offset="1"/>
+        </LinearGradientBrush>
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#0E1628"/>
+            <Setter Property="BorderBrush" Value="#35557CFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="16">
+
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                  Margin="2"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsKeyboardFocused"
+                             Value="True">
+                                <Setter TargetName="border"
+                                Property="BorderBrush"
+                                Value="#557CFF"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver"
+                             Value="True">
+                                <Setter TargetName="border"
+                                Property="BorderBrush"
+                                Value="#4A6FE8"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="AttachMenuButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                        Background="Transparent"
+                        CornerRadius="10">
+                            <ContentPresenter Margin="6,0"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd"
+                                Property="Background"
+                                Value="#253553"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd"
+                                Property="Background"
+                                Value="#31456E"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GlassPanel" TargetType="Border">
+            <Setter Property="Background" Value="#1A111A2E"/>
+            <Setter Property="BorderBrush" Value="#33FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="22"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="24"
+                                      ShadowDepth="0"
+                                      Opacity="0.25"
+                                      Color="#000000"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RoundButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#26314D"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="14"
+                        BorderBrush="#33FFFFFF"
+                        BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#33415F"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                     Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                     To="1.04"
+                                                     Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                     Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                     To="1.04"
+                                                     Duration="0:0:0.12"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                     Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                     To="1"
+                                                     Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                     Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                     To="1"
+                                                     Duration="0:0:0.12"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource RoundButton}">
+            <Setter Property="Background" Value="#557CFF"/>
+        </Style>
+
+        <Style x:Key="TopBarButton" TargetType="Button" BasedOn="{StaticResource RoundButton}">
+            <Setter Property="Width" Value="36"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Background" Value="#1E263D"/>
+        </Style>
+
+        <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource RoundButton}">
+            <Setter Property="Width" Value="42"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Background" Value="#26314D"/>
+        </Style>
+
+        <Style x:Key="SendButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Width" Value="92"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style x:Key="SidebarActionButton" TargetType="Button" BasedOn="{StaticResource RoundButton}">
+            <Setter Property="Background" Value="#17213A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="12,8"/>
+        </Style>
+
+        <Style x:Key="SearchBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#0E1628"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#35557CFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="14"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="4"/>
+                                <TextBlock Text=""
+                                           Foreground="#6C7AA8"
+                                           Margin="16,0,0,0"
+                                           VerticalAlignment="Center"
+                                           IsHitTestVisible="False">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                                <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ConversationItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="bd"
+                                Background="#111A2E"
+                                CornerRadius="16"
+                                Padding="12"
+                                BorderBrush="#22FFFFFF"
+                                BorderThickness="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#17213A"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#223A7A"/>
+                                <Setter TargetName="bd" Property="BorderBrush" Value="#557CFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MessageBubbleLeft" TargetType="Border">
+            <Setter Property="Background" Value="#111A2E"/>
+            <Setter Property="CornerRadius" Value="18,18,18,6"/>
+            <Setter Property="Padding" Value="14"/>
+            <Setter Property="MaxWidth" Value="520"/>
+            <Setter Property="BorderBrush" Value="#22FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style x:Key="MessageBubbleRight" TargetType="Border">
+            <Setter Property="Background" Value="#557CFF"/>
+            <Setter Property="CornerRadius" Value="18,18,6,18"/>
+            <Setter Property="Padding" Value="14"/>
+            <Setter Property="MaxWidth" Value="520"/>
+            <Setter Property="BorderBrush" Value="#22FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style x:Key="SideLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#8A9ABF"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style x:Key="SideValue" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid x:Name="RootGrid" Background="{StaticResource BgBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top bar -->
+        <Border Grid.Row="0"
+                Background="#0E1628"
+                BorderBrush="#223A7A"
+                BorderThickness="0,0,0,1">
+
+            <Grid Margin="16,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                    <Border Width="28"
+                            Height="28"
+                            CornerRadius="14"
+                            Background="#557CFF"
+                            Margin="0,0,10,0">
+                        <TextBlock Text="W"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+
+                    <TextBlock Text="Whisper"
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                    <Button Content="—"
+                            Width="36"
+                            Height="30"
+                            Margin="0,0,8,0"
+                            Style="{StaticResource RoundButton}"/>
+                    <Button Content="□"
+                            Width="36"
+                            Height="30"
+                            Margin="0,0,8,0"
+                            Style="{StaticResource RoundButton}"/>
+                    <Button Content="×"
+                            Width="36"
+                            Height="30"
+                            Style="{StaticResource RoundButton}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main layout -->
+        <Grid Grid.Row="1" Margin="14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="320"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left panel -->
+            <Border Grid.Column="0"
+                    Style="{StaticResource GlassPanel}"
+                    Margin="0,0,12,0">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox x:Name="txtSearch"
+                             Style="{StaticResource SearchBox}"
+                             Height="52"
+                             Margin="0,0,0,14"
+                             TextChanged="txtSearch_TextChanged"
+                             MouseDown="txtSearch_MouseDown"/>
+
+                    <StackPanel Grid.Row="1" Margin="0,0,0,14">
+                        <TextBlock Text="Saved Messages"
+                                   Foreground="White"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,10"/>
+
+                        <Border Background="#17213A"
+        CornerRadius="16"
+        Padding="12"
+        BorderBrush="#2A3A5E"
+        BorderThickness="1">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Avatar -->
+
+                                <Border Width="46"
+                Height="46"
+                CornerRadius="23"
+                ClipToBounds="True"
+                BorderBrush="#3E557E"
+                BorderThickness="1">
+
+                                    <Image x:Name="imgSavedMessages"
+                   Stretch="UniformToFill"
+                   RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                                </Border>
+
+                                <!-- Text -->
+
+                                <StackPanel Grid.Column="1"
+                    Margin="14,0,0,0"
+                    VerticalAlignment="Center">
+
+                                    <TextBlock Text="Saved Messages"
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       Foreground="White"/>
+
+                                    <TextBlock Text="Your personal space"
+                       Margin="0,3,0,0"
+                       FontSize="12"
+                       Foreground="#8A9ABF"/>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="Chats"
+                                   Foreground="White"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,10"/>
+
+                        <ListBox x:Name="lstChats"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 ItemContainerStyle="{StaticResource ConversationItemStyle}"
+                                 SelectionChanged="lstChats_SelectedIndexChanged"
+                                 Foreground="White">
+
+                        </ListBox>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Center chat -->
+            <Border Grid.Column="1"
+                    Style="{StaticResource GlassPanel}"
+                    Margin="0,0,12,0">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Chat header -->
+                    <Border Background="#111A2E"
+                            CornerRadius="16"
+                            Padding="12"
+                            Margin="0,0,0,12"
+                            BorderBrush="#22FFFFFF"
+                            BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Width="42"
+                                    Height="42"
+                                    CornerRadius="21"
+                                    BorderThickness="1"
+                                    BorderBrush="#455A86"
+                                    ClipToBounds="True"
+                                    Margin="0,0,8,0">
+                                <Image x:Name="imgProfileContact"
+                                       Stretch="UniformToFill"
+                                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1"
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center">
+                                <TextBlock x:Name="usNameYaroo"
+                                           Text=""
+                                           Foreground="White"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"/>
+                                <TextBlock x:Name="ContactStatus"
+                                           Text=""
+                                           Foreground="#30D158"
+                                           FontSize="12"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <Button Content="📁"
+                                        Width="40"
+                                        Height="36"
+                                        Margin="0,0,8,0"
+                                        Style="{StaticResource RoundButton}" Click="Button_Click_1"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <ListBox x:Name="lstMessages"
+                             Grid.Row="1"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Margin="0,0,0,12"
+                             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             MouseDoubleClick="lstMessages_MouseDoubleClick">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Margin" Value="0,0,0,10"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+
+                                <Border x:Name="Bubble"
+                    CornerRadius="16"
+                    Padding="12"
+                    MaxWidth="320">
+
+                                    <StackPanel>
+
+                                        <TextBlock Text="{Binding Text}"
+                               TextWrapping="Wrap"
+                               Foreground="White"/>
+
+                                        <TextBlock Text="{Binding Time}"
+                               FontSize="11"
+                               HorizontalAlignment="Right"
+                               Margin="0,6,0,0"/>
+
+                                    </StackPanel>
+
+                                </Border>
+
+                                <DataTemplate.Triggers>
+
+                                    <DataTrigger Binding="{Binding IsMine}" Value="True">
+                                        <Setter TargetName="Bubble"
+                            Property="Background"
+                            Value="#557CFF"/>
+                                        <Setter TargetName="Bubble"
+                            Property="HorizontalAlignment"
+                            Value="Right"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding IsMine}" Value="False">
+                                        <Setter TargetName="Bubble"
+                            Property="Background"
+                            Value="#1A233A"/>
+                                        <Setter TargetName="Bubble"
+                            Property="HorizontalAlignment"
+                            Value="Left"/>
+                                    </DataTrigger>
+
+                                </DataTemplate.Triggers>
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+
+                    <!-- Composer -->
+                    <Border Grid.Row="2"
+                            Background="#111A2E"
+                            CornerRadius="20"
+                            Padding="12"
+                            BorderBrush="#22FFFFFF"
+                            BorderThickness="1">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button x:Name="btnPlus"
+                                    Content="＋"
+                                    Width="42"
+                                    Height="42"
+                                    Margin="0,0,10,0"
+                                    Style="{StaticResource RoundButton}"
+                                    Click="btnPlus_Click"/>
+
+                            <Popup x:Name="popupAttach"
+                                   PlacementTarget="{Binding ElementName=btnPlus}"
+                                   Placement="Top"
+                                   AllowsTransparency="True"
+                                   StaysOpen="False">
+
+                                <Border Background="#1B2438"
+                                        CornerRadius="18"
+                                        Padding="12"
+                                        BorderBrush="#33415F"
+                                        BorderThickness="1">
+
+                                    <StackPanel Width="180">
+
+                                        <Button Style="{StaticResource AttachMenuButton}"
+                                                        Click="toolStripMenuItemImage_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="🖼"
+                                                           FontSize="18"
+                                                           Margin="0,0,10,0"/>
+                                                <TextBlock Text="Photo"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Style="{StaticResource AttachMenuButton}"
+                                                        Click="SendAudio_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="🎵"
+                                                           FontSize="18"
+                                                           Margin="0,0,10,0"/>
+                                                <TextBlock Text="Music"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Style="{StaticResource AttachMenuButton}"
+                                                Click="fileToolStripMenuItem_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="📄"
+                                                           FontSize="18"
+                                                           Margin="0,0,10,0"/>
+                                                <TextBlock Text="File"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                    </StackPanel>
+
+                                </Border>
+
+                            </Popup>
+                            <TextBox x:Name="txtMessage"
+                                     Grid.Column="1"
+                                     Height="44"
+                                     Margin="0,0,10,0"
+                                     Background="#0E1628"
+                                     Foreground="White"
+                                     BorderBrush="#35557CFF"
+                                     BorderThickness="1"
+                                     Padding="14,10"
+                                     VerticalContentAlignment="Center"
+                                     Style="{StaticResource ModernTextBox}"
+                                     PreviewMouseDown="txtWhatIWrite_MouseClick"
+                                     MouseLeave="txtWhatIWrite_MouseLeave"
+                                     TextChanged="txtWhatIWrite_TextChanged"
+                                     MouseEnter="txtWhatIWrite_Enter"/>
+
+                            <Button Grid.Column="2"
+                                    Content="Send"
+                                    Width="92"
+                                    Height="42"
+                                    Style="{StaticResource PrimaryButton}" Click="btnSend_Click"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Right profile -->
+            <Border Grid.Column="2"
+                    Style="{StaticResource GlassPanel}"
+                    Margin="0">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel HorizontalAlignment="Center">
+                        <Border Width="110"
+                                Height="110"
+                                CornerRadius="55"
+                                ClipToBounds="True"
+                                BorderBrush="#557CFF"
+                                BorderThickness="2"
+                                Background="#0E1628">
+                            <Image x:Name="imgProfile"
+                                   Stretch="UniformToFill"/>
+                        </Border>
+
+                        <TextBlock x:Name="lblUsername"
+                                   Text="Your username: "
+                                   Foreground="White"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,14,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Margin="0,38,0,0">
+                        <TextBlock Text="Nickname:" Style="{StaticResource SideLabel}" TextAlignment="Center"/>
+                        <TextBlock x:Name="lblNickname" Text="ff" Style="{StaticResource SideValue}" Margin="0,6,0,14" TextAlignment="Center"/>
+
+                        <TextBlock Text="Phone:" Style="{StaticResource SideLabel}" TextAlignment="Center"/>
+                        <TextBlock x:Name="lblPhoneNumber" Text="31212312323" Style="{StaticResource SideValue}" Margin="0,6,0,14" TextAlignment="Center"/>
+
+                        <TextBlock Text="Birthday:" Style="{StaticResource SideLabel}" TextAlignment="Center"/>
+                        <TextBlock x:Name="lblBirthday" Text="10/10/2014" Style="{StaticResource SideValue}" Margin="0,6,0,14" TextAlignment="Center"/>
+
+                        <TextBlock Text="Biography:" Style="{StaticResource SideLabel}" TextAlignment="Center"/>
+                        <TextBlock x:Name="lblBio" Text="kjwlfdfjdkls`1"
+                                   Style="{StaticResource SideValue}"
+                                   TextWrapping="Wrap"
+                                   Margin="0,6,0,0" TextAlignment="Center"/>
+                    </StackPanel>
+                    <Button Grid.Row="3"
+                            Content="Change"
+                            Width="100"
+                            Height="42"
+                            HorizontalAlignment="Center"
+                            Margin="0,249,0,53"
+                            Style="{StaticResource PrimaryButton}"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

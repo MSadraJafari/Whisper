@@ -1,0 +1,247 @@
+﻿<Page x:Class="Devices.InfoPages.InfoPage1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.openxmlformats.org/expression/blend/2008"
+      xmlns:local="clr-namespace:Devices.InfoPages"
+      mc:Ignorable="d"
+      d:DesignHeight="700"
+      d:DesignWidth="1200"
+      Loaded="Page_Loaded"
+      Title="InfoPage1">
+
+    <Page.Resources>
+        <LinearGradientBrush x:Key="BgBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0B1020" Offset="0"/>
+            <GradientStop Color="#101936" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="GlassCard" TargetType="Border">
+            <Setter Property="Background" Value="#1A111A2E"/>
+            <Setter Property="BorderBrush" Value="#33FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="24"/>
+            <Setter Property="Padding" Value="30"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="24"
+                                      ShadowDepth="0"
+                                      Opacity="0.30"
+                                      Color="#000000"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MainButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#557CFF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="24,12"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="14"
+                                BorderBrush="#3BFFFFFF"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#6A88FF"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                             To="1.04"
+                                                             Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                             To="1.04"
+                                                             Duration="0:0:0.12"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                             To="1"
+                                                             Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                             To="1"
+                                                             Duration="0:0:0.12"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="InputBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#0E1628"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#35557CFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="12"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid x:Name="Root" Background="{StaticResource BgBrush}">
+        <Ellipse Width="760"
+                 Height="760"
+                 Fill="#223A7A"
+                 Opacity="0.14"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Margin="180,0,0,0"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="420"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Margin="70,0,40,0">
+
+                <Border x:Name="LogoElement"
+                        Width="110"
+                        Height="110"
+                        CornerRadius="55"
+                        Background="#557CFF"
+                        HorizontalAlignment="Left">
+                    <TextBlock x:Name="TitleElement" Text="W"
+                               FontSize="58"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+
+                <TextBlock x:Name="WhisperText"
+                    Text="Whisper"
+                           FontSize="48"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,26,0,0"/>
+
+                <TextBlock x:Name="PersianText" Text="نجوا"
+                           FontSize="24"
+                           Foreground="#A6B4FF"
+                           Margin="0,2,0,0"/>
+
+                <TextBlock x:Name="SetupText" Text="Setup your account"
+                           FontSize="17"
+                           Foreground="#8A9ABF"
+                           Margin="0,16,0,0"/>
+
+                <TextBlock x:Name="HintText" Text="Start with your username."
+                           FontSize="15"
+                           Foreground="#6C7AA8"
+                           Margin="0,10,0,0"/>
+            </StackPanel>
+
+            <Border x:Name="CardElement" Grid.Column="1"
+                    Style="{StaticResource GlassCard}"
+                    Width="560"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="Username"
+                                   FontSize="34"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+
+                        <TextBlock Text="Choose the name other users will see."
+                                   FontSize="16"
+                                   Foreground="#8A9ABF"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1"
+                                VerticalAlignment="Center"
+                                Margin="0,34,0,0">
+
+                        <TextBlock Text="Your username"
+                                   FontSize="14"
+                                   Foreground="#B9C4E2"
+                                   Margin="2,0,0,8"/>
+
+                        <TextBox x:Name="txtUsername"
+                                 Style="{StaticResource InputBox}"
+                                 Height="50"
+                                 VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Example: SadraJafari"
+                                   FontSize="13"
+                                   Foreground="#6C7AA8"
+                                   Margin="2,10,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,28,0,0">
+
+                        <Button x:Name="CancelButton"
+                            Content="Cancel"
+                                Width="120"
+                                Height="48"
+                                Margin="0,0,12,0"
+                                Background="#26314D"
+                                Style="{StaticResource MainButton}" Click="Button_Click"/>
+
+                        <Button x:Name="NextButton"
+                            Content="Next →"
+                                Width="140"
+                                Height="48"
+                                Style="{StaticResource MainButton}"
+                                Click="btnNext_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

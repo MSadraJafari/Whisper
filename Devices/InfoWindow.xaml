@@ -1,0 +1,31 @@
+﻿<Window x:Class="Devices.InfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Whisper Setup"
+        Width="1200"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        FontFamily="Noto Color Emoji, Segoe UI Emoji, Arial"
+        Background="#0B1020">
+
+    <Grid>
+
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0"
+                                 EndPoint="1,1">
+                <GradientStop Color="#0B1020"
+                              Offset="0"/>
+                <GradientStop Color="#121D38"
+                              Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Frame x:Name="MainFrame"
+               NavigationUIVisibility="Hidden"
+               Background="Transparent"/>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,240 @@
+﻿<Window x:Class="Server.server"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Server"
+        mc:Ignorable="d"
+        Title="Server Control Panel"
+        Icon="server.ico"
+        Height="560" Width="980"
+        WindowStartupLocation="CenterScreen"
+        Background="#0B1020"
+        FontFamily="Segoe UI"
+        ResizeMode="CanResize">
+
+    <Window.Resources>
+
+        <DropShadowEffect x:Key="PanelShadow"
+                          BlurRadius="20"
+                          ShadowDepth="0"
+                          Opacity="0.35"
+                          Color="#000000"/>
+
+        <Style x:Key="GlowButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#232A3B"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="18,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="MinWidth" Value="150"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="14"
+                                BorderBrush="#2F3A55"
+                                BorderThickness="1"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#2D3750"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#557CFF"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                             To="1.04"
+                                                             Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="Bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                             To="1.04"
+                                                             Duration="0:0:0.12"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                             To="1"
+                                                             Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="Bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                             To="1"
+                                                             Duration="0:0:0.12"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="StatusChip" TargetType="Border">
+            <Setter Property="CornerRadius" Value="999"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Background" Value="#20283A"/>
+            <Setter Property="BorderBrush" Value="#2F3A55"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style x:Key="LogBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#101726"/>
+            <Setter Property="Foreground" Value="#D7E1FF"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Background="#111A2E"
+                CornerRadius="22"
+                Padding="18"
+                Effect="{StaticResource PanelShadow}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="Server Control Panel"
+                               Foreground="White"
+                               FontSize="26"
+                               FontWeight="Bold"/>
+                    <TextBlock Text="Manage the TCP server, monitor connections, and inspect logs."
+                               Foreground="#93A4C7"
+                               Margin="0,6,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                    <Border x:Name="StatusBorder"
+                            Style="{StaticResource StatusChip}">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="StatusDot"
+                                     Width="10" Height="10"
+                                     Fill="#FF5E5E"
+                                     VerticalAlignment="Center"
+                                     Margin="0,0,8,0"/>
+                            <TextBlock x:Name="StatusText"
+                                       Text="Stopped"
+                                       Foreground="White"
+                                       FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main -->
+        <Grid Grid.Row="1" Margin="0,18,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Actions -->
+            <Border Background="#111A2E"
+                    CornerRadius="22"
+                    Padding="16"
+                    Effect="{StaticResource PanelShadow}">
+                <DockPanel LastChildFill="False">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                        <Button x:Name="btnStart"
+                                Content="Start Server"
+                                Style="{StaticResource GlowButton}"
+                                Background="#1F8A5B"
+                                Click="btnStart_Click"
+                                Margin="0,0,12,0"/>
+                        <Button x:Name="btnStop"
+                                Content="Stop Server"
+                                Style="{StaticResource GlowButton}"
+                                Background="#B54444"
+                                Click="btnStop_Click"/>
+                    </StackPanel>
+
+                    <TextBlock DockPanel.Dock="Right"
+                               VerticalAlignment="Center"
+                               Foreground="#93A4C7"
+                               FontSize="13"
+                               Text="127.0.0.1 : 9999"/>
+                </DockPanel>
+            </Border>
+
+            <!-- Log -->
+            <Border Grid.Row="1"
+                    Background="#111A2E"
+                    CornerRadius="22"
+                    Padding="0"
+                    Margin="0,16,0,0"
+                    Effect="{StaticResource PanelShadow}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="#162033"
+                            CornerRadius="22,22,0,0"
+                            Padding="14,12">
+                        <TextBlock Text="Live Log"
+                                   Foreground="White"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"/>
+                    </Border>
+
+                    <TextBox x:Name="txtShowTexts"
+                             Grid.Row="1"
+                             Style="{StaticResource LogBoxStyle}"
+                             Margin="2,0,2,2"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
