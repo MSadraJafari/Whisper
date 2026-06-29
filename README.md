@@ -134,7 +134,6 @@ If you enjoyed this project, consider giving it a ⭐.
 ---
 
 
-
 ## 📄 License
 
-This project is open for personal and educational use.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
