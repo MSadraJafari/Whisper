@@ -112,11 +112,23 @@ Requirements:
 
 ---
 
-  ## 👤 Author
-
+## 👨‍💻 Author
 
 <p align="center">
-  Made with ❤️, ☕ and countless late-night debugging sessions by <b>Sadra Jafari</b>
+
+### Sadra Jafari
+
+Passionate about building modern desktop applications, elegant user interfaces, and high-performance networking solutions.
+
+<br>
+
+Made with ❤️, ☕ and countless late-night debugging sessions.
+
+<br><br>
+
+Thank you for checking out **Whisper**.  
+If you enjoyed this project, consider giving it a ⭐.
+
 </p>
 
 ---
