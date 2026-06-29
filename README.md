@@ -12,6 +12,7 @@
   It is designed to feel fast, clean, calm, and personal.
 </p>
 
+
 ---
 
 ## ✨ About
@@ -47,23 +48,30 @@ The goal of the project is simple: build a desktop messenger that looks good, fe
  - Custom XAML Styles
  - Bitmap / Image processing
 
----
 
+---
 ## 📁 Project Structure
+
+```text
 Whisper/
-├── Devices/
-│   ├── InfoPages/
-│   │   ├── InfoPage1.xaml
-│   │   ├── InfoPage2.xaml
-│   │   ├── InfoPage3.xaml
-│   │   ├── InfoPage4.xaml
-│   │   └── InfoPage5.xaml
+├── Devices/                 # WPF client application
+│   ├── InfoPages/           # Setup wizard pages
+│   ├── IntroPages/          # Intro screens
+│   ├── Styles/              # Reusable XAML styles
+│   ├── Required-Data/       # Assets and required local data
 │   ├── MainWindow.xaml
-│   ├── CropImage.xaml
-│   └── ...
-├── Model/
-├── Resources/
+│   ├── InfoWindow.xaml
+│   ├── IntroWindow.xaml
+│   └── CropImage.xaml
+│
+├── Model/                   # Shared data models
+│
+├── Server/                  # TCP chat server application
+│
+├── WpfChatApp.sln           # Solution file
 └── README.md
+```
+
 
 ---
 
@@ -103,9 +111,9 @@ Requirements:
 
 
 ---
-<p align="center">
+
   ## 👤 Author
-</p>
+
 
 <p align="center">
   Made with ❤️, ☕ and countless late-night debugging sessions by <b>Sadra Jafari</b>
