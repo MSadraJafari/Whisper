@@ -113,8 +113,7 @@ namespace Devices.InfoPages
                 image.Freeze();
             }
 
-            imgAvatar.Source = image;
-            btnChoosePhoto.BringIntoView();
+            imgAvatarBrush.ImageSource = image;
         }
 
         private void CopyFile(string sourseFilePath, string DestinationPath)
@@ -149,7 +148,7 @@ namespace Devices.InfoPages
                     loginDate = DateTime.Now
                 };
                 byte[] fileBytes;
-                BitmapSource bitmapSource = (BitmapSource)imgAvatar.Source;
+                BitmapSource bitmapSource = (BitmapSource)imgAvatarBrush.ImageSource;
 
                 JpegBitmapEncoder encoder = new JpegBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
@@ -370,7 +369,7 @@ namespace Devices.InfoPages
 
                 if (result == true && cropWindow.CroppedImage != null)
                 {
-                    imgAvatar.Source = cropWindow.CroppedImage;
+                    imgAvatarBrush.ImageSource = cropWindow.CroppedImage;
                     txtPlaceholder.Visibility = Visibility.Collapsed;
                 }
             }

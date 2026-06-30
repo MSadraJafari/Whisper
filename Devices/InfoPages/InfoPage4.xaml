@@ -284,11 +284,15 @@
                             <Ellipse x:Name="AvatarCircle" Width="140" Height="140" Fill="#223A7A" Stroke="#4FC3F7" StrokeThickness="3"/>
 
                             <!-- Clipped Image -->
-                            <Border x:Name="AvatarBorder" Width="134" Height="134" CornerRadius="67" ClipToBounds="True" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Image x:Name="imgAvatar"
-               Stretch="UniformToFill"
-               RenderOptions.BitmapScalingMode="HighQuality"/>
-                            </Border>
+                            <Ellipse x:Name="AvatarBorder" Width="134"
+         Height="134"
+         Stroke="#4FC3F7"
+         StrokeThickness="3">
+                                <Ellipse.Fill>
+                                    <ImageBrush x:Name="imgAvatarBrush"
+                    Stretch="UniformToFill"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
                             <!-- Camera Button -->
                             <Button x:Name="btnChoosePhoto"
