@@ -200,17 +200,15 @@
                 <StackPanel Grid.Row="2"
                             VerticalAlignment="Center">
 
-                    <Border Width="180"
-                            Height="180"
-                            CornerRadius="90"
-                            ClipToBounds="True"
-                            BorderBrush="#557CFF"
-                            BorderThickness="3"
-                            HorizontalAlignment="Center"
-                            Background="#0E1628">
-                        <Image x:Name="imgPreview"
-                               Stretch="UniformToFill"/>
-                    </Border>
+                    <Ellipse Width="180"
+                             Height="180"
+                             Stroke="#557CFF"
+                             StrokeThickness="3">
+                        <Ellipse.Fill>
+                            <ImageBrush x:Name="imgPreview"
+                                        Stretch="UniformToFill"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
 
                     <TextBlock Text="Zoom"
                                Margin="0,24,0,8"

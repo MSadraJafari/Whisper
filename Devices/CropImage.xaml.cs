@@ -33,9 +33,8 @@ namespace Devices
         private void CropImage_Loaded(object sender, RoutedEventArgs e)
         {
             imgMain.Source = _source;
-            imgPreview.Source = _source;
+            imgPreview.ImageSource = _source;
 
-            // صبر بیشتر برای لود کامل布局
             Dispatcher.BeginInvoke(new Action(InitializeImage), DispatcherPriority.Render);
         }
 
@@ -49,12 +48,11 @@ namespace Devices
 
             if (vw <= 10 || vh <= 10 || _source.PixelWidth <= 0 || _source.PixelHeight <= 0)
             {
-                // اگر هنوز اندازه درست نبود، دوباره امتحان کن
                 Dispatcher.BeginInvoke(new Action(InitializeImage), DispatcherPriority.Render);
                 return;
             }
 
-            _baseScale = Math.Max(vw / _source.PixelWidth, vh / _source.PixelHeight) * 0.85; // کمی کوچک‌تر برای حاشیه
+            _baseScale = Math.Max(vw / _source.PixelWidth, vh / _source.PixelHeight) * 0.85;
             _zoomScale = 1.0;
             _panX = 0.0;
             _panY = 0.0;
@@ -76,7 +74,6 @@ namespace Devices
             imgMain.Width = displayWidth;
             imgMain.Height = displayHeight;
 
-            // محافظت از Null
             double canvasWidth = CropCanvas.ActualWidth > 0 ? CropCanvas.ActualWidth : 800;
             double canvasHeight = CropCanvas.ActualHeight > 0 ? CropCanvas.ActualHeight : 600;
 
@@ -87,7 +84,6 @@ namespace Devices
             Canvas.SetTop(imgMain, centerY - (displayHeight / 2.0));
         }
 
-        // بقیه متدها بدون تغییر (فقط MouseWheel و ValueChanged رو هم ایمن‌تر کردم)
         private void CropCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton != MouseButtonState.Pressed) return;
@@ -122,7 +118,7 @@ namespace Devices
         private void CropCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             double next = _zoomScale + (e.Delta > 0 ? 0.1 : -0.1);
-            next = Math.Max(0.5, Math.Min(4.0, next)); // محدوده وسیع‌تر
+            next = Math.Max(0.5, Math.Min(4.0, next));
 
             _zoomScale = next;
             zoomSlider.Value = _zoomScale;
@@ -156,7 +152,7 @@ namespace Devices
         {
             var crop = CreateCroppedBitmap();
             if (crop != null)
-                imgPreview.Source = crop;
+                imgPreview.ImageSource = crop;
         }
 
         private BitmapSource? CreateCroppedBitmap()
