@@ -693,7 +693,7 @@ namespace Server
                 btnStop_Click(sender, e);
                 
                 _currentPort = newPort;
-                
+
                 string text = lblPort.Text;
                 text = $"0.0.0.0 : {newPort}";
                 lblPort.Text = text;
