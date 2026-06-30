@@ -7,9 +7,10 @@
       mc:Ignorable="d"
       d:DesignHeight="700"
       d:DesignWidth="1200"
-      Title="InfoPage2">
+      Title="InfoPage3">
 
     <Page.Resources>
+
         <LinearGradientBrush x:Key="BgBrush" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#0B1020" Offset="0"/>
             <GradientStop Color="#101936" Offset="1"/>
@@ -23,7 +24,10 @@
             <Setter Property="Padding" Value="30"/>
             <Setter Property="Effect">
                 <Setter.Value>
-                    <DropShadowEffect BlurRadius="24" ShadowDepth="0" Opacity="0.30" Color="#000000"/>
+                    <DropShadowEffect BlurRadius="24"
+                                      ShadowDepth="0"
+                                      Opacity="0.30"
+                                      Color="#000000"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -45,8 +49,13 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="14" BorderBrush="#3BFFFFFF" BorderThickness="1">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="14"
+                                BorderBrush="#3BFFFFFF"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -54,16 +63,28 @@
                                 <Trigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="bd" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.04" Duration="0:0:0.12"/>
-                                            <DoubleAnimation Storyboard.TargetName="bd" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.04" Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                             To="1.04"
+                                                             Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                             To="1.04"
+                                                             Duration="0:0:0.12"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
                                 <Trigger.ExitActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="bd" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.12"/>
-                                            <DoubleAnimation Storyboard.TargetName="bd" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                             To="1"
+                                                             Duration="0:0:0.12"/>
+                                            <DoubleAnimation Storyboard.TargetName="bd"
+                                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                             To="1"
+                                                             Duration="0:0:0.12"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
@@ -74,36 +95,43 @@
             </Setter>
         </Style>
 
-        <Style x:Key="InputBox" TargetType="TextBox">
+        <Style x:Key="TextAreaStyle" TargetType="TextBox">
             <Setter Property="Background" Value="#0E1628"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="#35557CFF"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="16,12"/>
-            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="CaretBrush" Value="White"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-
-        <!-- Country Selector Button -->
-        <Style x:Key="CountrySelectorButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="12,0,0,12" Padding="4,0">
-                            <ContentPresenter/>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="12"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="2"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Page.Resources>
 
     <Grid x:Name="Root" Background="{StaticResource BgBrush}">
-        <Ellipse Width="760" Height="760" Fill="#223A7A" Opacity="0.14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="180,0,0,0"/>
+
+        <Ellipse Width="760"
+                 Height="760"
+                 Fill="#223A7A"
+                 Opacity="0.14"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Margin="180,0,0,0"/>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -111,19 +139,51 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Left Side -->
-            <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="70,0,40,0">
-                <Border Width="110" Height="110" CornerRadius="55" Background="#557CFF" HorizontalAlignment="Left">
-                    <TextBlock Text="W" FontSize="58" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Margin="70,0,40,0">
+
+                <Border Width="110"
+                        Height="110"
+                        CornerRadius="55"
+                        Background="#557CFF"
+                        HorizontalAlignment="Left">
+                    <TextBlock Text="W"
+                               FontSize="58"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
                 </Border>
-                <TextBlock Text="Whisper" FontSize="48" FontWeight="Bold" Foreground="White" Margin="0,26,0,0"/>
-                <TextBlock Text="نجوا" FontSize="24" Foreground="#A6B4FF" Margin="0,2,0,0"/>
-                <TextBlock Text="Setup your account" FontSize="17" Foreground="#8A9ABF" Margin="0,16,0,0"/>
-                <TextBlock Text="Add your phone number." FontSize="15" Foreground="#6C7AA8" Margin="0,10,0,0"/>
+
+                <TextBlock Text="Whisper"
+                           FontSize="48"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,26,0,0"/>
+
+                <TextBlock Text="نجوا"
+                           FontSize="24"
+                           Foreground="#A6B4FF"
+                           Margin="0,2,0,0"/>
+
+                <TextBlock Text="Setup your account"
+                           FontSize="17"
+                           Foreground="#8A9ABF"
+                           Margin="0,16,0,0"/>
+
+                <TextBlock Text="Tell people about yourself."
+                           FontSize="15"
+                           Foreground="#6C7AA8"
+                           Margin="0,10,0,0"/>
             </StackPanel>
 
-            <!-- Right Side - Glass Card -->
-            <Border Grid.Column="1" Style="{StaticResource GlassCard}" Width="560" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border Grid.Column="1"
+                    Style="{StaticResource GlassCard}"
+                    Width="560"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -132,68 +192,67 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel>
-                        <TextBlock Text="Phone Number" FontSize="34" FontWeight="Bold" Foreground="White"/>
-                        <TextBlock Text="Enter a number other users can contact." FontSize="16" Foreground="#8A9ABF" Margin="0,8,0,0"/>
+                        <TextBlock Text="Biography"
+                                   FontSize="34"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+
+                        <TextBlock Text="Write a short bio that appears on your profile."
+                                   FontSize="16"
+                                   Foreground="#8A9ABF"
+                                   Margin="0,8,0,0"/>
                     </StackPanel>
 
-                    <!-- Phone Input -->
-                    <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0,34,0,0">
-                        <TextBlock Text="Your phone number" FontSize="14" Foreground="#B9C4E2" Margin="2,0,0,8"/>
+                    <StackPanel Grid.Row="1"
+                                VerticalAlignment="Center"
+                                Margin="0,34,0,0">
 
-                        <Border Background="#0E1628" CornerRadius="12" BorderBrush="#35557CFF" BorderThickness="1">
-                            <Grid Height="52">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                        <TextBlock Text="Your biography"
+                                   FontSize="14"
+                                   Foreground="#B9C4E2"
+                                   Margin="2,0,0,8"/>
 
-                                <!-- Country Selector -->
-                                <!-- Country Selector -->
-                                <Button x:Name="btnCountry" 
-        Style="{StaticResource CountrySelectorButton}"
-        Click="btnCountry_Click">
-                                    <StackPanel Orientation="Horizontal" Margin="14,0">
+                        <TextBox x:Name="txtBiography"
+                                 Style="{StaticResource TextAreaStyle}"
+                                 Height="166"
+                                 MaxLength="250"
+                                 TextChanged="txtBiography_TextChanged"
+                                 VerticalContentAlignment="Top"/>
 
-                                        <!-- مهم -->
+                        <DockPanel Margin="2,8,2,0">
+                            <TextBlock x:Name="txtHelper"
+                                       Text="Up to 250 characters"
+                                       FontSize="13"
+                                       Foreground="#6C7AA8"
+                                       DockPanel.Dock="Left"/>
 
-                                        <TextBlock x:Name="txtFlag" 
-                   Text="🇮🇷" 
-                   FontSize="26"
-                   Foreground="White"
-                   FontFamily="Segoe UI Emoji, Noto Color Emoji" Height="41"
-                                                   />
-
-                                        <TextBlock x:Name="txtCountryCode" 
-                   Text="+98" 
-                   FontSize="17" 
-                   VerticalAlignment="Center"
-                   Foreground="White"
-                   FontWeight="SemiBold" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-
-                                <!-- Phone Number -->
-                                <TextBox x:Name="txtPhoneNumber"
-         Grid.Column="1"
-         Style="{StaticResource InputBox}"
-         BorderThickness="0"
-         Background="Transparent"
-         Padding="8,0"
-         FontSize="17"
-         MaxLength="13"
-         PreviewTextInput="txtPhoneNumber_PreviewTextInput"
-         TextChanged="txtPhoneNumber_TextChanged"
-         KeyDown="txtPhoneNumber_KeyDown"/>
-                            </Grid>
-                        </Border>
-
-                        <TextBlock x:Name="txtHelper" Text="Example: 09123456789" FontSize="13" Foreground="#6C7AA8" Margin="4,8,0,0"/>
+                            <TextBlock x:Name="txtCount"
+                                       Text="0/250"
+                                       FontSize="13"
+                                       Foreground="#6C7AA8"
+                                       HorizontalAlignment="Right"
+                                       DockPanel.Dock="Right"/>
+                        </DockPanel>
                     </StackPanel>
 
-                    <!-- Buttons -->
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,28,0,0">
-                        <Button Content="← Back" Width="120" Height="48" Margin="0,0,12,0" Background="#26314D" Style="{StaticResource MainButton}" Click="btnBack_Click"/>
-                        <Button Content="Next →" Width="140" Height="48" Style="{StaticResource MainButton}" Click="btnNext_Click"/>
+                    <StackPanel Grid.Row="2"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,28,0,0">
+
+                        <Button Content="← Back"
+                                Width="120"
+                                Height="48"
+                                Margin="0,0,12,0"
+                                Background="#26314D"
+                                Style="{StaticResource MainButton}"
+                                Click="btnBack_Click"/>
+
+                        <Button Content="Next →"
+                                Width="140"
+                                Height="48"
+                                Style="{StaticResource MainButton}"
+                                Click="btnNext_Click"/>
                     </StackPanel>
                 </Grid>
             </Border>

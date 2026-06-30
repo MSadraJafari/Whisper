@@ -47,7 +47,7 @@ namespace Devices
             client.username = Decrypt(client.username, "1234567812345678");
 
             string exePath = Assembly.GetExecutingAssembly().Location;
-            RootDirectoryOfProgramRunning = Directory.GetParent(Directory.GetParent(Directory.GetParent(Convert.ToString(Path.GetDirectoryName(exePath))).FullName).FullName).FullName;
+            RootDirectoryOfProgramRunning = Convert.ToString(Path.GetDirectoryName(exePath));
             string directOfPerson = Path.Combine(MainRootDirectory, $"Client{client.username}Data");
             Directory.CreateDirectory(directOfPerson);
             string filesPreDi = Path.Combine(RootDirectoryOfProgramRunning, "Required-Data");
@@ -768,7 +768,6 @@ namespace Devices
             }));
             Dispatcher.Invoke(new Action(() =>
             {
-                lblPhoneNumber.Text = client.phoneNumber.ToString();
                 lblNickname.Text = client.tagName.ToString();
             }));
         }
@@ -980,7 +979,6 @@ namespace Devices
                         {
                             lblUsername.Text = "This User's Username: Hidden";
                             usNameYaroo.Text = csf.tagName;
-                            lblPhoneNumber.Text = csf.phoneNumber;
                             lblBio.Text = csf.bio;
                             lblNickname.Text = csf.tagName;
                             lblBirthday.Text = "Hidden";

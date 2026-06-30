@@ -761,9 +761,6 @@
                         <TextBlock Text="Nickname:" Style="{StaticResource SideLabel}" TextAlignment="Center"/>
                         <TextBlock x:Name="lblNickname" Text="ff" Style="{StaticResource SideValue}" Margin="0,6,0,14" TextAlignment="Center"/>
 
-                        <TextBlock Text="Phone:" Style="{StaticResource SideLabel}" TextAlignment="Center"/>
-                        <TextBlock x:Name="lblPhoneNumber" Text="31212312323" Style="{StaticResource SideValue}" Margin="0,6,0,14" TextAlignment="Center"/>
-
                         <TextBlock Text="Birthday:" Style="{StaticResource SideLabel}" TextAlignment="Center"/>
                         <TextBlock x:Name="lblBirthday" Text="10/10/2014" Style="{StaticResource SideValue}" Margin="0,6,0,14" TextAlignment="Center"/>
 

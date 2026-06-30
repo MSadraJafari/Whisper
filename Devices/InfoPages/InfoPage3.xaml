@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       d:DesignHeight="700"
       d:DesignWidth="1200"
-      Title="InfoPage3">
+      Title="InfoPage4">
 
     <Page.Resources>
 
@@ -95,18 +95,15 @@
             </Setter>
         </Style>
 
-        <Style x:Key="TextAreaStyle" TargetType="TextBox">
+        <Style x:Key="InputBox" TargetType="TextBox">
             <Setter Property="Background" Value="#0E1628"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="#35557CFF"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="16"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="FontSize" Value="17"/>
             <Setter Property="CaretBrush" Value="White"/>
-            <Setter Property="AcceptsReturn" Value="True"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
@@ -172,7 +169,7 @@
                            Foreground="#8A9ABF"
                            Margin="0,16,0,0"/>
 
-                <TextBlock Text="Tell people about yourself."
+                <TextBlock Text="Add your birthday."
                            FontSize="15"
                            Foreground="#6C7AA8"
                            Margin="0,10,0,0"/>
@@ -192,12 +189,12 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel>
-                        <TextBlock Text="Biography"
+                        <TextBlock Text="Birthday"
                                    FontSize="34"
                                    FontWeight="Bold"
                                    Foreground="White"/>
 
-                        <TextBlock Text="Write a short bio that appears on your profile."
+                        <TextBlock Text="Write your date of birth."
                                    FontSize="16"
                                    Foreground="#8A9ABF"
                                    Margin="0,8,0,0"/>
@@ -207,32 +204,24 @@
                                 VerticalAlignment="Center"
                                 Margin="0,34,0,0">
 
-                        <TextBlock Text="Your biography"
+                        <TextBlock Text="Your birthday"
                                    FontSize="14"
                                    Foreground="#B9C4E2"
                                    Margin="2,0,0,8"/>
 
-                        <TextBox x:Name="txtBiography"
-                                 Style="{StaticResource TextAreaStyle}"
-                                 Height="166"
-                                 MaxLength="250"
-                                 TextChanged="txtBiography_TextChanged"
-                                 VerticalContentAlignment="Top"/>
+                        <TextBox x:Name="txtBirthday"
+                                 Style="{StaticResource InputBox}"
+                                 Height="50"
+                                 Text=""
+                                 VerticalContentAlignment="Center"
+                                 PreviewTextInput="txtBirthday_PreviewTextInput"
+                                 TextChanged="txtBirthday_TextChanged"/>
 
-                        <DockPanel Margin="2,8,2,0">
-                            <TextBlock x:Name="txtHelper"
-                                       Text="Up to 250 characters"
-                                       FontSize="13"
-                                       Foreground="#6C7AA8"
-                                       DockPanel.Dock="Left"/>
-
-                            <TextBlock x:Name="txtCount"
-                                       Text="0/250"
-                                       FontSize="13"
-                                       Foreground="#6C7AA8"
-                                       HorizontalAlignment="Right"
-                                       DockPanel.Dock="Right"/>
-                        </DockPanel>
+                        <TextBlock x:Name="txtHelper"
+                                   Text="Example: 06/25/2006"
+                                   FontSize="13"
+                                   Foreground="#6C7AA8"
+                                   Margin="2,10,0,0"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2"
