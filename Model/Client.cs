@@ -26,7 +26,6 @@ namespace Model
         public List<string> knownOnlineUsers { get; set; }
         public string profilePicture { get; set; }
         public string bio { get; set; }
-        public string phoneNumber { get; set; }
         public string tagName { get; set; }
         public string birthDay { get; set; }
         [JsonIgnore]

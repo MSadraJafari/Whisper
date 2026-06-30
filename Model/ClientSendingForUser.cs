@@ -11,7 +11,6 @@ namespace Model
         public string username { get; set; }
         public string profPicture { get; set; }
         public string bio { get; set; }
-        public string phoneNumber { get; set; }
         public string tagName { get; set; }
     }
 }
