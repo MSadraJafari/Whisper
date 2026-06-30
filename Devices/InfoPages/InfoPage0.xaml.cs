@@ -27,7 +27,7 @@ namespace Devices.InfoPages
             }
 
             ServerPort = port;
-            ServerIP = txtServerPort.Text.Trim();
+            ServerIP = txtServerIP.Text.Trim();
 
             Dispatcher.Invoke(() =>
             {
