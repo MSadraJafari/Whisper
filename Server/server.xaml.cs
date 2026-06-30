@@ -603,7 +603,7 @@ namespace Server
                 btnStart.IsEnabled = false;
                 txtShowTexts.AppendText("Server started!\n");
                 IPAddress ip = IPAddress.Parse("0.0.0.0");
-                tcpListener = new TcpListener(ip, 9999);
+                tcpListener = new TcpListener(ip, _currentPort);
                 tcpListener.Start();
                 isListening = true;
             }
