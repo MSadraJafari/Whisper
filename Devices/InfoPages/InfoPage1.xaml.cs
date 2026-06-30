@@ -3,6 +3,7 @@ using Model;
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Security.Cryptography;
@@ -24,7 +25,7 @@ namespace Devices.InfoPages
         IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
         int port = 9999;
         TcpClient MainTCPClient;
-        public InfoPage1(string status, IPAddress ServerIP =null, int Port=0,TcpClient tcpClient = null,string username = "")
+        public InfoPage1(string status, IPAddress ServerIP = null, int Port = 0, TcpClient tcpClient = null, string username = "")
         {
             InitializeComponent();
             Loaded += Page_Loaded;
@@ -61,50 +62,6 @@ namespace Devices.InfoPages
 
             Root.BeginAnimation(OpacityProperty, fade);
             trans.BeginAnimation(TranslateTransform.XProperty, slide);
-        }
-
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var exitTasks = new[]
-            {
-                AnimateElementAsync(LogoElement,     0,   -220, 650),
-                AnimateElementAsync(WhisperText,   -520,     0, 650),
-                AnimateElementAsync(PersianText,     520,     0, 650),
-                AnimateElementAsync(SetupText,        0,   -180, 650),
-                AnimateElementAsync(HintText,         0,    180, 650),
-                AnimateElementAsync(CardElement,      0,    260, 650),
-                AnimateElementAsync(txtUsername,      0,    260, 650),
-                AnimateElementAsync(NextButton,     560,      0, 650),
-                AnimateElementAsync(CancelButton,  -560,      0, 650)
-            };
-
-            var fadeOutPage = new DoubleAnimation
-            {
-                From = 1,
-                To = 0,
-                Duration = TimeSpan.FromMilliseconds(320),
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
-            };
-            Root.BeginAnimation(OpacityProperty, fadeOutPage);
-
-            var host = Window.GetWindow(this);
-            if (host != null)
-            {
-                var fadeOutWindow = new DoubleAnimation
-                {
-                    From = 1,
-                    To = 0,
-                    Duration = TimeSpan.FromMilliseconds(320),
-                    EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
-                };
-                host.BeginAnimation(Window.OpacityProperty, fadeOutWindow);
-            }
-
-            await Task.WhenAll(exitTasks);
-            await Task.Delay(1000);
-
-            host?.Close();
         }
 
         private static Task AnimateElementAsync(FrameworkElement element, double toX, double toY, int milliseconds)
@@ -234,7 +191,7 @@ namespace Devices.InfoPages
             }
             catch (Exception ex)
             {
-                if (ex.Message == "No connection could be made because the target machine actively refused it 127.0.0.1:9999" || ex.Message== "No connection could be made because the target machine actively refused it. [::ffff:127.0.0.1]:9999")
+                if (ex.Message == "No connection could be made because the target machine actively refused it 127.0.0.1:9999" || ex.Message == "No connection could be made because the target machine actively refused it. [::ffff:127.0.0.1]:9999")
                 {
                     MessageBox.Show("Server is not started yet", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
@@ -287,6 +244,16 @@ namespace Devices.InfoPages
                     }
                 }
             }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            var host = (InfoWindow)Window.GetWindow(this);
+
+            if (string.IsNullOrEmpty(ipAddress.ToString()) || port == null)
+                host.FrameRef.Navigate(new InfoPage0("back","127.0.0.1", 9999));
+            else
+                host.FrameRef.Navigate(new InfoPage0("back", ipAddress.ToString(), port));
         }
     }
 }

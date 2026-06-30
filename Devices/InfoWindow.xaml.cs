@@ -14,7 +14,7 @@ namespace Devices
             InitializeComponent();
 
             MainFrame.Navigate(
-                new InfoPages.InfoPage0());
+                new InfoPages.InfoPage0("next"));
         }
     }
 }
