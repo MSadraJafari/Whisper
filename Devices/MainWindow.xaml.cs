@@ -696,7 +696,7 @@ namespace Devices
                 Directory.CreateDirectory(clientFolder);
                 string filePath = Path.Combine(clientFolder, "profile.jpg");
                 File.WriteAllBytes(filePath, fileBytes);
-                LoadImage(imgProfile, filePath);
+                LoadImage(imgProfileBrush, filePath);
             }));
             Dispatcher.Invoke(new Action(() =>
             {
@@ -936,11 +936,11 @@ namespace Devices
                         {
                             if (isFullPBOX)
                             {
-                                imgProfileContact.Source = null;
-                                LoadImage(imgProfileContact, SavedMesssagesIconPath);
+                                imgProfileBrush.ImageSource = null;
+                                LoadImage(imgProfileContactBrush, SavedMesssagesIconPath);
                             }
                             else
-                                LoadImage(imgProfileContact, SavedMesssagesIconPath);
+                                LoadImage(imgProfileContactBrush, SavedMesssagesIconPath);
                         }));
                         return;
                     }
@@ -948,7 +948,7 @@ namespace Devices
                     {
                         if (isFullPBOX)
                         {
-                            imgProfileContact.Source = null;
+                            imgProfileContactBrush.ImageSource = null;
                         }
                         else
                             isFullPBOX = true;
@@ -973,7 +973,7 @@ namespace Devices
                         File.WriteAllBytes(filePath, fileBytes);
                         Dispatcher.Invoke(new Action(() =>
                         {
-                            Dispatcher.Invoke(new Action(() => { LoadImage(imgProfileContact, filePath); }));
+                            Dispatcher.Invoke(new Action(() => { LoadImage(imgProfileContactBrush, filePath); }));
                         }));
                         Dispatcher.Invoke(new Action(() =>
                         {
@@ -1270,12 +1270,12 @@ namespace Devices
                 }
             }
         }
-        private void LoadImage(Image pb, string path)
+        private void LoadImage(ImageBrush pb, string path)
         {
             if (!File.Exists(path))
                 return;
-            if (pb.Source != null)
-                pb.Source = null;
+            if (pb.ImageSource != null)
+                pb.ImageSource = null;
 
             BitmapImage bi = new BitmapImage();
 
@@ -1285,7 +1285,7 @@ namespace Devices
             bi.EndInit();
             bi.Freeze();
 
-            pb.Source = bi;
+            pb.ImageSource = bi;
         }
         private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

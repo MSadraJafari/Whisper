@@ -437,19 +437,15 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Avatar -->
-
-                                <Border Width="46"
-                Height="46"
-                CornerRadius="23"
-                ClipToBounds="True"
-                BorderBrush="#3E557E"
-                BorderThickness="1">
-
-                                    <Image x:Name="imgSavedMessages"
-                   Stretch="UniformToFill"
-                   RenderOptions.BitmapScalingMode="HighQuality"/>
-
-                                </Border>
+                                <Ellipse Width="46"
+                                         Height="46"
+                                         Stroke="#3E557E"
+                                         StrokeThickness="1">
+                                    <Ellipse.Fill>
+                                        <ImageBrush x:Name="imgSavedMessages"
+                                                    Stretch="UniformToFill"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
 
                                 <!-- Text -->
 
@@ -519,17 +515,15 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border Width="42"
-                                    Height="42"
-                                    CornerRadius="21"
-                                    BorderThickness="1"
-                                    BorderBrush="#455A86"
-                                    ClipToBounds="True"
-                                    Margin="0,0,8,0">
-                                <Image x:Name="imgProfileContact"
-                                       Stretch="UniformToFill"
-                                       RenderOptions.BitmapScalingMode="HighQuality"/>
-                            </Border>
+                            <Ellipse Width="42"
+                                     Height="42"
+                                     Stroke="#455A86"
+                                     StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <ImageBrush x:Name="imgProfileContactBrush"
+                                                Stretch="UniformToFill"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
                             <StackPanel Grid.Column="1"
                                         Margin="12,0,0,0"
@@ -737,16 +731,15 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel HorizontalAlignment="Center">
-                        <Border Width="110"
-                                Height="110"
-                                CornerRadius="55"
-                                ClipToBounds="True"
-                                BorderBrush="#557CFF"
-                                BorderThickness="2"
-                                Background="#0E1628">
-                            <Image x:Name="imgProfile"
-                                   Stretch="UniformToFill"/>
-                        </Border>
+                        <Ellipse Width="110"
+                                 Height="110"
+                                 Stroke="#557CFF"
+                                 StrokeThickness="2">
+                            <Ellipse.Fill>
+                                <ImageBrush x:Name="imgProfileBrush"
+                                            Stretch="UniformToFill"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
 
                         <TextBlock x:Name="lblUsername"
                                    Text="Your username: "
