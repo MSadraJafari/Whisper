@@ -21,11 +21,16 @@ namespace Devices.InfoPages
         bool successful = false;
         private readonly string _status = "";
         RoutedEventArgs ee = new RoutedEventArgs();
-        public InfoPage1(string status, string username = "")
+        IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
+        int port = 9999;
+        TcpClient MainTCPClient;
+        public InfoPage1(string status, IPAddress ServerIP =null, int Port=0,TcpClient tcpClient = null,string username = "")
         {
             InitializeComponent();
             Loaded += Page_Loaded;
             _status = status;
+            this.ipAddress = ServerIP;
+            this.port = Port;
             _username = username;
         }
         //---------------UI--------------------
@@ -181,9 +186,15 @@ namespace Devices.InfoPages
                     MessageBox.Show("Please enter username and address", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
-                tcpClien = new TcpClient();
-                IPAddress ip = IPAddress.Parse("127.0.0.1");
-                tcpClien.Connect(ip, 9999);
+                if (_status == "back")
+                {
+                    tcpClien = MainTCPClient;
+                }
+                else
+                {
+                    tcpClien = new TcpClient();
+                    tcpClien.Connect(ipAddress, port);
+                }
                 Client client = new Client(Encrypt("", "1234567812345678"), tcpClien);
                 List<ClientSendingForUser> users = new List<ClientSendingForUser>();
                 NetworkStream stream = tcpClien.GetStream();

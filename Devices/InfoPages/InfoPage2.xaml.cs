@@ -1,4 +1,5 @@
 ﻿using Model;
+using System.Net;
 using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
@@ -79,7 +80,7 @@ namespace Devices.InfoPages
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             var host = (InfoWindow)Window.GetWindow(this);
-            host.FrameRef.Navigate(new InfoPage1("back",_username));
+            host.FrameRef.Navigate(new InfoPage1("back",tcpClient: _tcpClient,username: _username));
         }
     }
 }
