@@ -930,13 +930,13 @@ namespace Devices
                         {
                             usNameYaroo.Text = "Saved Messages";
                             ContactStatus.Text = "You can save your messages here.";
-                            lblUsername.Text = "Your username: " + client.username;
+                            setInfoRight();
                         }));
                         Dispatcher.Invoke(new Action(() =>
                         {
                             if (isFullPBOX)
                             {
-                                imgProfileBrush.ImageSource = null;
+                                imgProfileContactBrush.ImageSource = null;
                                 LoadImage(imgProfileContactBrush, SavedMesssagesIconPath);
                             }
                             else
@@ -973,7 +973,7 @@ namespace Devices
                         File.WriteAllBytes(filePath, fileBytes);
                         Dispatcher.Invoke(new Action(() =>
                         {
-                            Dispatcher.Invoke(new Action(() => { LoadImage(imgProfileContactBrush, filePath); }));
+                            Dispatcher.Invoke(new Action(() => { LoadImage(imgProfileContactBrush, filePath); LoadImage(imgProfileBrush, filePath); }));
                         }));
                         Dispatcher.Invoke(new Action(() =>
                         {
