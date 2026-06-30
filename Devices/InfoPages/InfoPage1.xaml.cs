@@ -250,7 +250,7 @@ namespace Devices.InfoPages
         {
             var host = (InfoWindow)Window.GetWindow(this);
 
-            if (string.IsNullOrEmpty(ipAddress.ToString()) || port == null)
+            if (string.IsNullOrEmpty(ipAddress?.ToString()) || port == null || port ==0)
                 host.FrameRef.Navigate(new InfoPage0("back","127.0.0.1", 9999));
             else
                 host.FrameRef.Navigate(new InfoPage0("back", ipAddress.ToString(), port));
