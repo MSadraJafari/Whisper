@@ -34,6 +34,8 @@ namespace Server
         List<Client> ClientsWaitingForAnsewrs = new List<Client>();
         int startPressed = 0;
         List<DataModel> MessagesWaitingForCorrection = new List<DataModel>();
+        int _currentPort = 9999;
+
         public server()
         {
             InitializeComponent();
@@ -184,7 +186,6 @@ namespace Server
                 ClientSendingForUser clientS = new ClientSendingForUser
                 {
                     bio = cc.bio,
-                    phoneNumber = cc.phoneNumber,
                     profPicture = cc.profilePicture,
                     tagName = cc.tagName,
                     username = cc.username
@@ -415,7 +416,7 @@ namespace Server
                             {
                                 Dispatcher.Invoke(new Action(() =>
                                 {
-                                    txtShowTexts.AppendText($"Client {client.username} left the connection");
+                                    txtShowTexts.AppendText($"Client {client.username} left the connection\n");
                                 }));
                                 clientsLeft.Add(client);
                                 clientsOnline.Remove(client);
@@ -601,7 +602,7 @@ namespace Server
                 isListening = false;
                 btnStart.IsEnabled = false;
                 txtShowTexts.AppendText("Server started!\n");
-                IPAddress ip = IPAddress.Parse("127.0.0.1");
+                IPAddress ip = IPAddress.Parse("0.0.0.0");
                 tcpListener = new TcpListener(ip, 9999);
                 tcpListener.Start();
                 isListening = true;
@@ -670,6 +671,38 @@ namespace Server
                 }
 
             });
+        }
+
+        private void btnChangePort_Click(object sender, RoutedEventArgs e)
+        {
+            
+            var dlg = new AskPortDialog(_currentPort)
+            {
+                Owner = this
+            };
+
+            if (dlg.ShowDialog() != true)
+                return;
+
+            int newPort = dlg.ResultPort;
+
+            if (newPort == _currentPort)
+                return;
+            else
+            {
+                btnStop_Click(sender, e);
+                
+                _currentPort = newPort;
+                
+                string text = lblPort.Text;
+                text = $"0.0.0.0 : {newPort}";
+                lblPort.Text = text;
+
+                Thread.Sleep(1000);
+                
+                btnStart_Click(sender, e);
+            }
+
         }
     }
 }

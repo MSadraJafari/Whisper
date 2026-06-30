@@ -196,14 +196,22 @@
                                 Content="Stop Server"
                                 Style="{StaticResource GlowButton}"
                                 Background="#B54444"
-                                Click="btnStop_Click"/>
+                                Click="btnStop_Click"
+                                Margin="0,0,12,0"/>
+                        <Button x:Name="btnChangePort"
+                                Content="Change Port"
+                                Style="{StaticResource GlowButton}"
+                                Background="#557CFF"
+                                Click="btnChangePort_Click"
+                                Margin="0,0,12,0"/>
                     </StackPanel>
 
-                    <TextBlock DockPanel.Dock="Right"
+                    <TextBlock x:Name="lblPort"
+                               DockPanel.Dock="Right"
                                VerticalAlignment="Center"
                                Foreground="#93A4C7"
                                FontSize="13"
-                               Text="127.0.0.1 : 9999"/>
+                               Text="0.0.0.0 : 9999"/>
                 </DockPanel>
             </Border>
 
